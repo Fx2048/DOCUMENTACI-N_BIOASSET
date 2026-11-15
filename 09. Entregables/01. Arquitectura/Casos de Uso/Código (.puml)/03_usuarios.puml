@@ -1,0 +1,23 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+skinparam usecase {
+    BackgroundColor White
+    BorderColor Black
+}
+
+title Casos de Uso - Gestión de Usuarios
+
+actor "Administrador" as Admin
+
+rectangle "Gestión de Usuarios" {
+    usecase "Consultar usuarios" as UC_ListUsers
+    usecase "Activar / desactivar\nusuario" as UC_ToggleUser
+}
+
+Admin --> UC_ListUsers
+Admin --> UC_ToggleUser
+
+@enduml

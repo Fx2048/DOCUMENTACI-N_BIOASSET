@@ -1,0 +1,48 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+skinparam usecase {
+    BackgroundColor White
+    BorderColor Black
+}
+
+title Diagrama de Casos de Uso - CREO BioAsset (Vista general por módulos)
+
+actor "Usuario\nAsistencial" as Asist
+actor "Biomédico" as Bio
+actor "Administrador" as Admin
+
+Bio --|> Asist
+Admin --|> Bio
+
+rectangle "CREO BioAsset" {
+    usecase "Autenticación y perfil" as M_Auth
+    usecase "Gestión de Inventario" as M_Inv
+    usecase "Gestión de Mantenimiento\ne Incidencias" as M_Maint
+    usecase "Gestión de Alertas" as M_Alert
+    usecase "Consulta del Sistema\n(dashboard/indicadores)" as M_Query
+    usecase "Gestión de Usuarios" as M_Users
+}
+
+Asist --> M_Auth
+Asist --> M_Inv
+Asist --> M_Maint
+Asist --> M_Alert
+Asist --> M_Query
+
+Admin --> M_Users
+
+note bottom of M_Inv
+  Detalle en: 01_inventario.puml
+end note
+note bottom of M_Maint
+  Detalle en: 02_mantenimiento.puml
+end note
+note bottom of M_Users
+  Solo Administrador.
+  Detalle en: 03_usuarios.puml
+end note
+
+@enduml

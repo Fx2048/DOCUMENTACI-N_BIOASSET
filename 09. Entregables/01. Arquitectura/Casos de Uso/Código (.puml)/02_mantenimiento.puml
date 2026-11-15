@@ -1,0 +1,40 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+skinparam usecase {
+    BackgroundColor White
+    BorderColor Black
+}
+
+title Casos de Uso - Gestión de Mantenimiento e Incidencias
+
+actor "Usuario\nAsistencial" as Asist
+actor "Biomédico" as Bio
+actor "Administrador" as Admin
+
+Bio --|> Asist
+Admin --|> Bio
+
+rectangle "Gestión de Mantenimiento" {
+    usecase "Registrar incidencia" as UC_CreateIncident
+    usecase "Consultar incidencias" as UC_ListIncident
+    usecase "Actualizar incidencia" as UC_UpdateIncident
+
+    usecase "Consultar mantenimientos" as UC_ListMaint
+    usecase "Registrar mantenimiento" as UC_CreateMaint
+    usecase "Actualizar mantenimiento" as UC_UpdateMaint
+}
+
+' --- Base: Usuario Asistencial (solo incidencias) ---
+Asist --> UC_CreateIncident
+Asist --> UC_ListIncident
+Asist --> UC_UpdateIncident
+
+' --- Adicional: Biomédico (mantenimientos programados) ---
+Bio --> UC_ListMaint
+Bio --> UC_CreateMaint
+Bio --> UC_UpdateMaint
+
+@enduml

@@ -1,0 +1,54 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+skinparam usecase {
+    BackgroundColor White
+    BorderColor Black
+}
+
+title Casos de Uso - Gestión de Inventario
+
+actor "Usuario\nAsistencial" as Asist
+actor "Biomédico" as Bio
+actor "Administrador" as Admin
+
+Bio --|> Asist
+Admin --|> Bio
+
+rectangle "Gestión de Inventario" {
+    usecase "Consultar equipos" as UC_ListEquip
+    usecase "Consultar ficha técnica\nde equipo" as UC_ViewEquip
+    usecase "Consultar equipos\nmediante QR" as UC_QRView
+    usecase "Consultar ubicaciones" as UC_ListLocations
+    usecase "Consultar trazabilidad" as UC_Trace
+    usecase "Registrar movimiento" as UC_Move
+
+    usecase "Registrar equipo" as UC_CreateEquip
+    usecase "Actualizar equipo" as UC_UpdateEquip
+    usecase "Generar código QR" as UC_QR
+
+    usecase "Gestionar ubicaciones" as UC_ManageLocations
+}
+
+' --- Base: Usuario Asistencial (consulta) ---
+Asist --> UC_ListEquip
+Asist --> UC_ViewEquip
+Asist --> UC_QRView
+Asist --> UC_ListLocations
+Asist --> UC_Trace
+Asist --> UC_Move
+
+' --- Adicional: Biomédico (registro/actualización) ---
+Bio --> UC_CreateEquip
+Bio --> UC_UpdateEquip
+Bio --> UC_QR
+
+' --- Adicional: Administrador (ubicaciones) ---
+Admin --> UC_ManageLocations
+
+UC_CreateEquip ..> UC_QR : <<include>>
+UC_QRView ..> UC_QR : <<extend>>
+
+@enduml

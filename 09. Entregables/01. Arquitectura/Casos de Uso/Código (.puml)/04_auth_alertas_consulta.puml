@@ -1,0 +1,40 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+skinparam usecase {
+    BackgroundColor White
+    BorderColor Black
+}
+
+title Casos de Uso - Autenticación, Alertas y Consulta del Sistema
+
+actor "Usuario\nAsistencial" as Asist
+actor "Biomédico" as Bio
+actor "Administrador" as Admin
+
+Bio --|> Asist
+Admin --|> Bio
+
+rectangle "Autenticación" {
+    usecase "Iniciar sesión" as UC_Login
+    usecase "Consultar perfil" as UC_Profile
+}
+
+rectangle "Gestión de Alertas" {
+    usecase "Consultar alertas" as UC_Alerts
+}
+
+rectangle "Consulta del Sistema" {
+    usecase "Consultar dashboard" as UC_Dashboard
+    usecase "Consultar indicadores" as UC_Metrics
+}
+
+Asist --> UC_Login
+Asist --> UC_Profile
+Asist --> UC_Alerts
+Asist --> UC_Dashboard
+Asist --> UC_Metrics
+
+@enduml
